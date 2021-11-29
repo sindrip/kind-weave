@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mcast-sender
+  labels:
+    app: mcast-sender
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mcast-sender
+  template:
+    metadata:
+      labels:
+        app: mcast-sender
+    spec:
+      containers:
+      - name: mcast-sender
+        image: mcast_sender

@@ -1,0 +1,19 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+metadata:
+ name: mcast-receiver
+build:
+ artifacts:
+ - image: mcast_receiver
+   context: mcast_receiver
+   docker:
+     dockerfile: Dockerfile
+ - image: mcast_sender
+   context: mcast_sender
+   docker:
+     dockerfile: Dockerfile
+deploy:
+ kubectl:
+   manifests:
+   - mcast_receiver/deployment.yaml
+   - mcast_sender/deployment.yaml

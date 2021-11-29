@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mcast-receiver
+  labels:
+    app: mcast-receiver
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: mcast-receiver
+  template:
+    metadata:
+      labels:
+        app: mcast-receiver
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: mcast-receiver
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: mcast-receiver
+        image: mcast_receiver
